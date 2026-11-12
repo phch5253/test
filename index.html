@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f8fc">
+<title>QnA Space — 질문이 연결되는 공간</title>
+<style>
+:root{--bg:#f7f8fc;--paper:#fff;--ink:#20243a;--muted:#72788f;--line:#e5e8f2;--purple:#6558d3;--purple2:#eeeaff;--blue:#e9f3ff;--mint:#e4f7f0;--pink:#fff0f3;--shadow:0 12px 34px #29305b0d}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Noto Sans KR",sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:11px 14px;background:var(--purple);color:#fff;font-weight:700}button:active{transform:scale(.98)}button:disabled{opacity:.45}.secondary{background:#f0efff;color:var(--purple)}.outline{background:#fff;color:var(--ink);border:1px solid var(--line)}.quiet{background:transparent;color:var(--muted)}header{height:68px;position:sticky;top:0;z-index:10;background:#ffffffed;backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(18px,calc((100vw - 1180px)/2))}.brand{display:flex;align-items:center;gap:10px;font-weight:850;font-size:19px;letter-spacing:-.5px}.logo{width:35px;height:35px;border-radius:12px;background:linear-gradient(145deg,#7a6cf0,#5145bb);display:grid;place-items:center;color:#fff;font-size:17px}.brand small{display:block;font-size:10px;font-weight:600;color:var(--muted);letter-spacing:.1px;margin-top:2px}.desktop-nav{display:flex;gap:5px}.desktop-nav button{background:transparent;color:var(--muted);font-size:13px;padding:10px 13px}.desktop-nav button.active{background:var(--purple2);color:var(--purple)}.wrap{max-width:1180px;margin:auto;padding:26px 18px 100px}.view{display:none}.view.active{display:block}.eyebrow{font-size:11px;letter-spacing:1.1px;text-transform:uppercase;color:var(--purple);font-weight:850}.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin:8px 0 22px}.hero h1{font-size:clamp(26px,4vw,38px);letter-spacing:-1.4px;line-height:1.12;margin:8px 0}.hero p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}.search{display:flex;gap:8px;max-width:350px;width:100%}.search input,.field{width:100%;border:1px solid var(--line);background:#fff;border-radius:12px;padding:12px;color:var(--ink);outline:none}.search input:focus,.field:focus,textarea:focus{border-color:#a49cf0;box-shadow:0 0 0 3px #6558d31a}.explore-tools{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:16px 0 12px}.chips{display:flex;gap:7px;overflow:auto;scrollbar-width:none}.chips button{white-space:nowrap;background:#fff;color:var(--muted);border:1px solid var(--line);padding:8px 12px;font-size:12px}.chips button.active{background:var(--purple2);border-color:#ded9ff;color:var(--purple)}.zoom-tools{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px;white-space:nowrap}.zoom-tools input{width:92px;accent-color:var(--purple)}.map-shell{border:1px solid var(--line);background:#fff;border-radius:22px;overflow:hidden;box-shadow:var(--shadow)}.map-top{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line);gap:10px}.map-top strong{font-size:13px}.map-top span{font-size:11px;color:var(--muted)}.map-viewport{height:440px;overflow:auto;position:relative;background-color:#fbfbff;background-image:radial-gradient(#e0e2f2 1px,transparent 1px);background-size:22px 22px;touch-action:pan-x pan-y;overscroll-behavior:contain}.map-canvas{position:relative;width:1050px;height:660px;transform-origin:top left;transition:transform .22s ease}.category{position:absolute;width:250px;min-height:180px;padding:18px;border:1px solid #e2dfff;border-radius:25px;background:linear-gradient(145deg,#fff,#f5f2ff);box-shadow:0 14px 30px #5546c30d;cursor:pointer;transition:box-shadow .18s,transform .18s}.category:hover{box-shadow:0 18px 38px #5546c322;transform:translateY(-3px)}.category .bubble{width:42px;height:42px;border-radius:15px;display:grid;place-items:center;font-size:20px;margin-bottom:15px;background:var(--purple2)}.category h3{margin:0 0 6px;font-size:18px;letter-spacing:-.5px}.category p{font-size:12px;line-height:1.5;color:var(--muted);margin:0 0 13px}.category .count{font-size:11px;font-weight:800;color:var(--purple)}.subcat{position:absolute;width:220px;min-height:125px;padding:15px;border-radius:20px;border:1px solid var(--line);background:#fff;box-shadow:var(--shadow);cursor:pointer}.subcat h3{font-size:15px;margin:7px 0}.subcat p{font-size:11px;line-height:1.45;color:var(--muted);margin:0}.subcat .mini{font-size:10px;color:var(--purple);font-weight:800}.qcard{position:absolute;width:230px;min-height:158px;border:1px solid var(--line);border-radius:18px;padding:15px;background:#fff;box-shadow:var(--shadow);cursor:pointer}.qcard:nth-child(even){background:#f8faff}.qcard .type{font-size:10px;font-weight:850;color:var(--purple);background:var(--purple2);padding:5px 8px;border-radius:20px}.qcard h3{font-size:14px;line-height:1.45;margin:12px 0 8px}.qcard p{font-size:11px;line-height:1.5;color:var(--muted);margin:0 0 12px}.tags{display:flex;gap:5px;flex-wrap:wrap}.tags span{font-size:10px;color:#5f6681;background:#f0f2f8;padding:4px 7px;border-radius:20px}.map-footer{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;gap:12px;border-top:1px solid var(--line);font-size:11px;color:var(--muted)}.map-footer button{font-size:11px;padding:8px 10px}.detail-panel{display:none;margin-top:14px;padding:20px;border:1px solid var(--line);border-radius:18px;background:#fff}.detail-panel.show{display:block}.detail-panel h2{font-size:21px;line-height:1.35;margin:10px 0}.detail-panel p{font-size:13px;line-height:1.7;color:var(--muted)}.label{display:inline-block;font-size:10px;color:var(--purple);font-weight:800;background:var(--purple2);padding:5px 8px;border-radius:30px}.two-col{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:14px}.panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:var(--shadow)}.panel h2{font-size:16px;margin:0 0 9px}.muted{font-size:12px;line-height:1.6;color:var(--muted)}.mindmap{height:390px;overflow:auto;border:1px solid var(--line);border-radius:14px;background-color:#fbfbff;background-image:radial-gradient(#e0e2f2 1px,transparent 1px);background-size:20px 20px;touch-action:pan-x pan-y}.mindinner{position:relative;width:900px;height:610px}.mindinner svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}.node{position:absolute;width:155px;min-height:82px;padding:11px;border:1px solid #dcd7ff;border-radius:14px;background:#f4f1ff;box-shadow:0 5px 15px #2e2b570c;cursor:grab;touch-action:pan-y;user-select:none}.node.answer{background:var(--mint);border-color:#cdece0}.node.selected{outline:3px solid #8e83ef}.node small{font-size:10px;color:var(--purple);font-weight:800}.node b{display:block;font-size:12px;line-height:1.45;margin:7px 0}.node em{font-style:normal;font-size:10px;color:var(--muted)}textarea.field{min-height:95px;resize:vertical}.progressbar{height:7px;border-radius:10px;background:#eeeef6;overflow:hidden;margin:10px 0}.progressbar span{height:100%;display:block;background:linear-gradient(90deg,#8175f2,#54c7ad);width:20%;transition:width .2s}.qrow{padding:10px;border:1px solid var(--line);border-radius:12px;margin:7px 0;font-size:12px;line-height:1.5}.qrow label{display:flex;gap:8px;align-items:flex-start}.qrow input{accent-color:var(--purple);margin-top:3px}.qrow.done{background:#f0faf6;border-color:#d7f0e6}.item{border:1px solid var(--line);border-radius:14px;padding:14px;margin:9px 0}.item h3{font-size:14px;margin:9px 0}.item p{font-size:12px;line-height:1.6;color:var(--muted)}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.toast{position:fixed;z-index:30;left:50%;bottom:calc(82px + env(safe-area-inset-bottom));transform:translate(-50%,15px);opacity:0;pointer-events:none;max-width:calc(100vw - 30px);padding:12px 16px;border-radius:14px;background:#252641;color:#fff;font-size:12px;box-shadow:0 10px 25px #1a1b3a2b;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}.mobile-nav{display:none}.empty{padding:28px;text-align:center;color:var(--muted);font-size:13px}
+@media(max-width:760px){header{height:60px;padding:0 14px}.brand{font-size:17px}.brand small{font-size:9px}.desktop-nav{display:none}.wrap{padding:21px 12px 105px}.hero{display:block}.hero h1{font-size:29px}.hero p{font-size:13px}.search{max-width:none;margin-top:15px}.explore-tools{align-items:flex-start;flex-direction:column}.zoom-tools{width:100%;justify-content:flex-end}.map-viewport{height:420px}.map-top{align-items:flex-start;flex-direction:column}.map-footer{align-items:flex-start}.two-col{grid-template-columns:1fr}.mindmap{height:360px}.panel{padding:14px}.mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:20;justify-content:space-around;background:#ffffffed;backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:7px 4px calc(7px + env(safe-area-inset-bottom))}.mobile-nav button{display:flex;flex-direction:column;align-items:center;gap:3px;background:transparent;color:var(--muted);font-size:10px;padding:4px 10px;font-weight:650}.mobile-nav button span{font-size:18px}.mobile-nav button.active{color:var(--purple)}.grid2{grid-template-columns:1fr}}
+
+.map-viewport{overflow:auto;touch-action:pan-x pan-y}
+.map-stage{position:relative;width:1500px;height:1050px;flex:none}
+.map-canvas{position:absolute;left:0;top:0;width:1500px;height:1050px;transform-origin:0 0;transition:transform .24s cubic-bezier(.2,.7,.2,1)}
+.map-canvas .qcard{width:230px;min-height:145px;transition:opacity .2s,box-shadow .2s}
+.map-canvas .qcard:hover{box-shadow:0 18px 35px #5546c322}
+.map-canvas .group-tag{position:absolute;z-index:4;min-width:150px;max-width:200px;padding:10px 12px;border:1px solid #dcd7ff;border-radius:18px;background:#f1eeffe0;color:#5145bb;box-shadow:0 10px 24px #5546c31a;pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.92);transition:opacity .2s,transform .2s}
+.map-canvas .group-tag strong{display:block;font-size:15px;margin-bottom:4px}
+.map-canvas .group-tag span{font-size:10px;color:#7168b5}
+.map-canvas .group-halo{position:absolute;border:1px dashed #d9d4ff;border-radius:28px;background:#f6f4ff55;pointer-events:none;transition:opacity .2s}
+.map-canvas.zoomed-out .group-tag{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.map-canvas.zoomed-out .qcard{opacity:.82}
+.map-canvas.zoomed-out .group-halo{opacity:1}
+.map-canvas.zoomed-in .group-tag{opacity:0}
+.map-canvas.zoomed-in .qcard{opacity:1}
+@media(max-width:760px){
+ .wrap{min-width:0;width:100%;overflow-x:clip}
+ .hero,.hero>div,.panel,.two-col,.two-col>*{min-width:0;max-width:100%}
+ .hero{gap:12px}
+ .hero>button{flex-shrink:0}
+ .search{min-width:0}
+ .search input{min-width:0;width:100%}
+ .explore-tools{min-width:0;width:100%;gap:10px}
+ .chips{width:100%;flex-wrap:wrap;overflow:visible;white-space:normal;gap:6px}
+ .chips button{font-size:11px;padding:7px 9px;flex:0 0 auto;max-width:100%}
+ .zoom-tools{flex-wrap:wrap;justify-content:space-between}
+ .zoom-tools input{flex:1;min-width:65px}
+ .map-shell,.map-viewport{max-width:100%;min-width:0}
+ .map-footer{flex-wrap:wrap}
+ .two-col{gap:10px}
+ .two-col .panel{overflow:hidden}
+ .field,textarea.field,select.field{max-width:100%;min-width:0}
+ .mobile-nav button{min-width:0;padding:4px 7px;font-size:10px}
+}
+
+
+/* QnASpace three-level zoom map */
+.map-viewport{overflow:auto;overscroll-behavior:contain;touch-action:pan-x pan-y}
+.map-stage{position:relative;flex:none}
+.map-canvas{position:absolute;left:0;top:0;width:1500px;height:1050px;transform-origin:top left;transition:transform .42s cubic-bezier(.2,.75,.25,1);will-change:transform}
+.map-canvas .group-halo{position:absolute;z-index:0;border:1px dashed #d9d2fa;border-radius:48% 42% 45% 38% / 40% 45% 38% 48%;background:radial-gradient(ellipse at center,#f3f0ff7a,#f7f5ff20 72%);pointer-events:none;transition:all .42s ease}
+.map-canvas .qcard{position:absolute;z-index:2;width:230px;min-height:145px;display:block;visibility:visible;opacity:1;transition:opacity .28s ease,transform .42s cubic-bezier(.2,.75,.25,1);border-radius:18px;background:#fff;box-shadow:0 8px 24px #36305a0b;white-space:normal;overflow-wrap:anywhere}
+.map-canvas .group-tag{position:absolute;z-index:5;min-width:190px;max-width:220px;padding:15px 19px;border:1px solid #dcd5ff;border-radius:999px;background:#eeeafff5;color:#5145b8;box-shadow:0 10px 28px #5145b81c;text-align:center;pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.82);transition:opacity .3s ease,transform .42s cubic-bezier(.2,.75,.25,1)}
+.map-canvas .group-tag strong{display:block;font-size:16px;margin-bottom:4px}
+.map-canvas .group-tag span{font-size:11px;color:#7168b5}
+.map-canvas .topic-chip{position:absolute;z-index:4;padding:10px 16px;border:1px solid #dcd5ff;border-radius:999px;background:#f5f2ff;color:#5b50b8;font-size:12px;box-shadow:0 5px 16px #5145b812;opacity:0;transform:translate(-50%,-50%) scale(.8);transition:opacity .28s ease,transform .42s cubic-bezier(.2,.75,.25,1);pointer-events:none;white-space:nowrap}
+.map-canvas.zoomed-out .qcard{opacity:0;visibility:hidden;transform:scale(.84);pointer-events:none}
+.map-canvas.zoomed-out .group-tag{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.map-canvas.zoomed-out .group-halo{background:#f2efff60;border-style:solid}
+.map-canvas.zoomed-mid .qcard{opacity:0;visibility:hidden;transform:scale(.9);pointer-events:none}
+.map-canvas.zoomed-mid .group-tag{opacity:0;transform:translate(-50%,-50%) scale(.82)}
+.map-canvas.zoomed-mid .topic-chip{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.map-canvas.zoomed-mid .group-halo{background:#f4f1ff75}
+.map-canvas.zoomed-in .qcard{opacity:1;visibility:visible;transform:scale(1);pointer-events:auto}
+.map-canvas.zoomed-in .group-tag,.map-canvas.zoomed-in .topic-chip{opacity:0;transform:translate(-50%,-50%) scale(.82)}
+@media(max-width:760px){
+ .map-viewport{width:100%;max-width:100%;min-width:0;overflow:auto}
+ .map-canvas .qcard{width:230px;min-height:145px;padding:12px}
+ .map-canvas .group-tag{min-width:170px;max-width:200px;padding:13px 15px}
+ .map-canvas .topic-chip{font-size:11px;padding:9px 13px}
+}
+
+
+/* Cork board & sticky-note design */
+body{background:#f4efe4;color:#342c23}
+header{background:#fff9ee;border-bottom:2px solid #e7d8bd}
+.panel,.detail-panel,.map-shell{background:#fffaf0;border:1px solid #decda9;box-shadow:0 6px 20px #6e4d2410}
+.map-viewport{background-color:#cda779;background-image:radial-gradient(#9d754e55 1px,transparent 1px),linear-gradient(135deg,#d8b68a,#c59a67);background-size:13px 13px,100% 100%;border:10px solid #a77c4e;border-radius:14px;box-shadow:inset 0 0 20px #76502a60}
+.map-canvas .group-halo{border:3px dashed #fff6dcaa;background:#fff4d32b}
+.map-canvas .group-tag{background:#fff4bf;border:1px solid #d5b66a;color:#695123;border-radius:45% 55% 48% 52% / 54% 44% 56% 46%;box-shadow:4px 7px 0 #66451b33;padding:23px 24px}
+.map-canvas .group-tag span{color:#806837}
+.map-canvas .qcard{border:0;border-radius:3px;background:#fff4ad;box-shadow:3px 6px 0 #50371933,0 11px 18px #4d2c1833;transform:rotate(-1deg);padding:18px;}
+.map-canvas .qcard:nth-of-type(4n){background:#d9f2d2;transform:rotate(1.5deg)}
+.map-canvas .qcard:nth-of-type(4n + 1){background:#ffd9d9;transform:rotate(-1.3deg)}
+.map-canvas .qcard:nth-of-type(4n + 2){background:#dceaff;transform:rotate(.8deg)}
+.map-canvas.zoomed-in .qcard{transform:rotate(-.6deg)}
+.map-canvas.zoomed-in .qcard:hover{transform:translateY(-5px) rotate(0deg);z-index:7}
+.map-canvas .qcard:before{content:'';position:absolute;width:43px;height:14px;left:calc(50% - 21px);top:-7px;background:#fff9e0a8;transform:rotate(-4deg);box-shadow:0 1px 2px #3332}
+.node{border-radius:4px!important;background:#fff1a7!important;box-shadow:3px 5px 0 #624a2833!important}
+.node.answer{background:#d8f2d4!important}
+.related-qa{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:15px;padding:12px;background:#fff4d8;border-radius:9px}
+.feedback-area{margin-top:18px;padding-top:14px;border-top:1px dashed #c5b391}
+.feedback-area textarea{width:100%;min-height:88px;margin:8px 0}
+
+.legacy-mine{display:none!important}.workspace-head{margin:0 0 15px}.workspace-head h2{margin:9px 0}.workspace-head .row{display:flex;flex-wrap:wrap;gap:8px}.workspace-head button{flex:1;min-width:130px}.workspace-origin{background:#fff0c8;padding:9px 12px;border-radius:8px}.item .mini-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.node{touch-action:none}
+
+/* v7: consistent non-overlapping category ellipses */
+.map-canvas{height:1510px!important}
+.map-canvas .group-halo{border-radius:50%!important;border:2px solid #f9f0d9!important;background:rgba(255,246,221,.30)!important;box-shadow:inset 0 0 0 1px #ffffff70!important}
+.map-canvas.zoomed-out .group-halo{background:rgba(255,247,226,.42)!important}
+.map-canvas .group-tag{background:#fff3b9f5!important;border:1px solid #dfc87c!important;color:#55492d!important}
+.map-canvas .group-tag span{color:#807354!important}
+.inbox-layout{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.inbox-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.inbox-tabs button{background:#f1edff;color:#5145b8;font-size:12px}
+.inbox-tabs button.active{background:#6558d3;color:white}
+.status{display:inline-block;padding:4px 9px;border-radius:999px;background:#fff2d3;color:#9a691a;font-size:11px;font-weight:800}
+.status.accepted{background:#e2f8ec;color:#16805a}.status.rejected{background:#ffe9e9;color:#b64d4d}
+.inbox-entry{width:100%;text-align:left;background:#fff;color:var(--ink);border:1px solid var(--line);padding:13px;margin:6px 0}
+.inbox-entry.active{border-color:#7567e2;background:#f7f5ff}
+.inbox-entry h3{font-size:13px;margin:7px 0}.inbox-entry p{font-size:11px;color:var(--muted);margin:0}
+@media(max-width:760px){.inbox-layout{grid-template-columns:1fr}}
+
+/* v8: fixed Q/A color language and privacy-aware type filtering */
+.type-filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 13px}
+.type-filters button{background:#fff;border:1px solid #d8c8a9;color:#5d5343;font-size:12px;padding:9px 13px}
+.type-filters button.active{background:#6156cb;color:#fff;border-color:#6156cb}
+.map-canvas .qcard.postit-q{background:#fff1aa!important;border-color:#dec46c!important}
+.map-canvas .qcard.postit-a{background:#d9f3d1!important;border-color:#9ccf9a!important}
+.map-canvas .qcard.postit-q .type{background:#f9df72;color:#67501c}
+.map-canvas .qcard.postit-a .type{background:#a9dea2;color:#255c31}
+.map-canvas .qcard[hidden],.map-canvas .group-halo[hidden],.map-canvas .group-tag[hidden],.map-canvas .topic-chip[hidden]{display:none!important}
+.category-pick{display:flex;flex-direction:column;gap:6px;margin:13px 0}
+.category-pick label{font-size:12px;font-weight:800}.category-pick small{font-size:11px;color:#7c7466}
+
+/* v9: staged disclosure and collaboration */
+.privacy-card{border:1px solid #e2d7bb;background:#fffaf0;border-radius:17px;padding:16px;margin:14px 0}
+.privacy-card h3{margin:0 0 9px}.privacy-note{font-size:12px;color:#746954;line-height:1.6}
+.collab-badge{display:inline-block;background:#e8e3ff;color:#5546b0;padding:5px 10px;border-radius:100px;font-size:12px;font-weight:800}
+.access-status{padding:10px;border-radius:10px;background:#f4f0e7;font-size:12px;margin:9px 0}
+.collab-actions{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.collab-actions button{font-size:12px;padding:9px 12px}
+.collab-entry{border:1px solid #e2d7bb;border-radius:12px;padding:12px;margin:8px 0;background:#fffdf7}
+.collab-entry p{font-size:12px;color:#756d60;margin:6px 0}
+.guide-prompt{border-left:3px solid #8a79dc;padding:9px 11px;background:#f7f4ff;border-radius:5px;margin:8px 0;font-size:13px}
+
+/* v10 collaboration workspace viewer and floating agent */
+.shared-overlay[hidden],.agent-chat[hidden]{display:none!important}
+.shared-overlay{position:fixed;inset:0;z-index:1200;background:#27231d9c;padding:20px 10px;display:flex;align-items:center;justify-content:center}
+.shared-dialog{width:min(940px,100%);max-height:90dvh;overflow:auto;background:#fffaf0;border-radius:20px;padding:18px;box-shadow:0 16px 65px #211b174d}
+.shared-top{display:flex;justify-content:space-between;gap:12px;align-items:center;position:sticky;top:-18px;background:#fffaf0;padding:12px 0;z-index:2}
+.shared-node-board{position:relative;width:900px;height:650px;background:#cda879;box-shadow:inset 0 0 0 10px #a97c4b;border-radius:16px;overflow:hidden;background-image:radial-gradient(#a47f5c 1px,transparent 1px);background-size:24px 24px}
+.shared-scroll{overflow:auto;max-width:100%;border-radius:14px;margin:12px 0}
+.shared-note{position:absolute;width:200px;min-height:95px;padding:12px;background:#fff1ac;border-radius:7px;box-shadow:3px 4px 0 #8b744d44;white-space:normal;overflow-wrap:anywhere;font-size:13px}
+.shared-note.answer{background:#dcf3d4}.shared-note small{display:block;font-weight:800;margin-bottom:6px}.shared-line{position:absolute;inset:0;pointer-events:none}
+.shared-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.shared-fact{border:1px solid #e3d8bd;border-radius:12px;padding:12px;background:#fffdf7;overflow-wrap:anywhere}.shared-fact strong{display:block;margin-bottom:7px}
+.agent-fab{position:fixed;right:20px;bottom:calc(88px + env(safe-area-inset-bottom,0px));width:60px;height:60px;border-radius:50%;background:#6556d2;color:white;font-size:28px;box-shadow:0 8px 24px #3b30865c;z-index:1100;display:grid;place-items:center;border:3px solid white;cursor:pointer}
+.agent-chat{position:fixed;right:16px;bottom:calc(158px + env(safe-area-inset-bottom,0px));width:min(390px,calc(100vw - 32px));height:min(530px,calc(100dvh - 240px));min-height:300px;display:flex;flex-direction:column;z-index:1100;background:#fffaf1;border:1px solid #d8cba9;border-radius:19px;overflow:hidden;box-shadow:0 12px 42px #2d24365e}
+.agent-head{padding:13px;background:#6556d2;color:white;display:flex;justify-content:space-between;align-items:center;gap:10px}.agent-head small{display:block;font-size:11px;opacity:.85;margin-top:4px}.agent-x{background:transparent;color:white;border:0;font-size:20px;padding:4px 9px}
+.agent-messages{flex:1;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:10px}.agent-msg{max-width:90%;border-radius:13px;padding:10px 12px;white-space:pre-wrap;font-size:13px;line-height:1.55;background:#f0eafc;align-self:flex-start}.agent-msg.me{background:#e4f1db;align-self:flex-end}
+.agent-suggestions{display:flex;gap:5px;padding:6px 10px;overflow-x:auto}.agent-suggestions button{font-size:11px;white-space:nowrap;padding:7px 9px;background:#f0ebff;color:#5144aa}.agent-form{display:flex;gap:6px;padding:10px;border-top:1px solid #e6dbc8}.agent-form input{flex:1;min-width:0;border:1px solid #ddd2bb;border-radius:9px;padding:10px}.agent-form button{padding:9px 12px}
+@media(min-width:900px){.agent-fab{bottom:24px}.agent-chat{bottom:95px}}
+
+#questions .qrow{display:block!important;visibility:visible!important;opacity:1!important;background:#fffdf6;border:1px solid #e3d7b5;padding:12px;margin:9px 0}
+#questions .qrow label{font-size:14px;font-weight:700;color:#312c25}
+#myWorkspaces .item,#myAnswers .item{display:block!important}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="logo">Q</span><div>QnA Space<small>질문에서 답변으로, 생각을 연결하다</small></div></div>
+  <nav class="desktop-nav" aria-label="주요 메뉴"><button class="active" data-view="explore">탐색</button><button data-view="create">만들기</button><button data-view="mine">내 스페이스</button><button data-view="inbox">의견함 <span id="inboxCountTop">2</span></button></nav>
+  <button id="headerNew" class="secondary">＋ 새 질문</button>
+</header>
+<main class="wrap">
+<section class="view active" id="explore">
+  <div class="hero"><div><div class="eyebrow">Explore the questions</div><h1>질문이 모이고,<br>답변이 연결되는 공간.</h1><p>줌아웃하면 관심 분야가 보이고, 가까이 들어가면 질문과 답변을 발견해요.</p></div><div class="search"><input id="searchInput" placeholder="질문이나 관심 분야 검색" aria-label="질문 검색"><button id="searchBtn">검색</button></div></div>
+  <div class="explore-tools"><div class="chips" id="categoryFilters"><button class="active" data-cat="all">전체 분야</button><button data-cat="기술·AI">기술·AI</button><button data-cat="생활·편의">생활·편의</button><button data-cat="사회·환경">사회·환경</button><button data-cat="경제·경영">경제·경영</button><button data-cat="교육·학습">교육·학습</button><button data-cat="문화·예술">문화·예술</button></div><div class="zoom-tools"><span id="zoomLabel">분야 보기</span><input id="zoomRange" type="range" min="1" max="2" value="1" step="1" aria-label="탐색 확대 단계"><button id="zoomIn" class="outline">확대 +</button></div></div>
+  <div class="type-filters" id="typeFilters" aria-label="Q A 유형 필터"><button class="active" data-kind="all">전체 Q&A</button><button data-kind="Q">Q · 질문만</button><button data-kind="A">A · 해결책만</button></div>
+  <div class="map-shell"><div class="map-top"><div><strong id="mapTitle">관심 분야 지도</strong><br><span id="mapHint">확대하면 글이 커지고, 축소하면 분야 태그가 나타납니다.</span></div><button id="backMap" class="outline" hidden>← 분야로</button></div><div class="map-viewport" id="mapViewport"><div class="map-stage" id="mapStage"><div class="map-canvas" id="mapCanvas"></div></div></div><div class="map-footer"><span id="mapStatus">모든 Q&A가 한 지도에 표시됩니다.</span><button class="quiet" id="resetMap">지도 처음으로</button></div></div>
+  <section class="detail-panel" id="detailPanel"><span class="label" id="detailLabel">Q · 질문</span><h2 id="detailTitle"></h2><p id="detailBody"></p><div class="tags" id="detailTags"></div><div id="relatedQA" class="related-qa"></div><div id="projectAccess" class="privacy-card"></div><div id="feedbackArea" class="feedback-area"><h3>의견 및 개선 제안</h3><div id="feedbackList"></div><textarea id="feedbackText" class="field" placeholder="이 해결책을 어떻게 개선하면 좋을까요?"></textarea><button id="submitFeedback">의견 등록</button></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px"><button id="growAnswer">이 질문에서 답변 만들기</button><button class="outline" id="closeDetail">닫기</button></div></section>
+</section>
+<section class="view" id="create">
+  <div class="hero"><div><div class="eyebrow">Build a space</div><h1>질문을 구조화하고<br>답변을 연결해 보세요.</h1><p>노드를 움직이고 연결선을 만들며 생각을 구체화할 수 있어요.</p></div><button id="newNodeBtn">＋ 답변 노드</button></div>
+  <div class="panel workspace-head"><span class="label" id="workspaceKind">Q · 질문 만들기</span><h2 id="workspaceTitle">왜 점심시간마다 식당 대기가 길어질까?</h2><p id="workspaceOrigin" class="muted"></p><div class="category-pick"><label for="workspaceCategory">분야 선택</label><select id="workspaceCategory" class="field"><option value="기술·AI">기술·AI</option><option value="생활·편의">생활·편의</option><option value="사회·환경">사회·환경</option><option value="경제·경영">경제·경영</option><option value="교육·학습">교육·학습</option><option value="문화·예술">문화·예술</option></select><small>작성자가 최종 선택합니다. AI 분야 추천은 추후 연동 예정입니다.</small></div><div class="privacy-card"><h3>🔒 프로젝트 공개 설정</h3><span class="collab-badge">기본값 · 부분 공개</span><p class="privacy-note">탐색에는 제목과 공개 소개만 표시됩니다. 참여를 신청하고 작성자가 승인한 사용자는 작성자의 만들기 스페이스 전체를 읽기 전용으로 볼 수 있어요.</p><label for="publicSummary">외부에 보여줄 공개 소개</label><textarea id="publicSummary" class="field" placeholder="문제, 대상 사용자, 기대 효과만 작성하세요. 구현 핵심은 공개하지 마세요."></textarea><p class="privacy-note">🔐 승인된 참여자에게는 별도 상세 기획 문서가 아닌 현재 만들기 스페이스의 노드·연결·구체화 답변·검증 기록을 공유합니다. 편집 권한은 별도로 부여하지 않습니다.</p><textarea id="privatePlan" hidden aria-hidden="true"></textarea><button id="saveProjectPrivacy" class="outline">공개 소개 저장</button><p class="privacy-note">주의: 이 HTML은 서버 없는 시연본입니다. 실제 보안·비밀유지·권리 보호를 제공하지 않습니다.</p></div><div class="row"><button class="outline" id="newBlankQ">＋ 빈 Q 스페이스</button><button class="outline" id="newBlankA">＋ 빈 A 스페이스</button><button class="outline" id="saveWorkspace">현재 작업 저장</button></div></div><div class="two-col"><div class="panel"><div class="row"><h2 id="workspaceMapTitle">Q&A 연결 지도</h2><button id="connectBtn" class="outline">연결 모드: OFF</button></div><p class="muted">노드는 드래그해서 옮길 수 있어요. 연결 모드를 켠 뒤 노드 두 개를 차례로 누르면 연결됩니다.</p><div class="mindmap" id="mindViewport"><div class="mindinner" id="mind"><svg id="lines" viewBox="0 0 900 610"></svg><div class="node selected" data-id="base" style="left:370px;top:30px"><small>핵심 Q</small><b>왜 점심시간마다 식당 대기가 길어질까?</b><em>중심 질문</em></div><div class="node" data-id="q1" style="left:100px;top:205px"><small>기본 질문 1</small><b>언제, 어디서 대기가 심할까?</b><em>답변 필요</em></div><div class="node" data-id="q2" style="left:370px;top:205px"><small>기본 질문 2</small><b>주요 원인은 무엇일까?</b><em>답변 필요</em></div><div class="node" data-id="q3" style="left:640px;top:205px"><small>기본 질문 3</small><b>누가 가장 불편해할까?</b><em>답변 필요</em></div><div class="node answer" data-id="a1" style="left:100px;top:405px"><small>연결된 A</small><b>요일과 시간대별 대기 데이터를 모아보자.</b><em>답변 초안</em></div><div class="node" data-id="q4" style="left:370px;top:405px"><small>기본 질문 4</small><b>현재는 어떻게 해결하고 있을까?</b><em>답변 필요</em></div><div class="node" data-id="q5" style="left:640px;top:405px"><small>기본 질문 5</small><b>해결되면 어떤 변화가 생길까?</b><em>답변 필요</em></div></div></div><div class="row" style="margin-top:10px"><span class="muted" id="lineStatus">연결 6개</span><button id="deleteLineBtn" class="outline">선택 연결 삭제</button></div></div>
+  <aside style="display:grid;gap:12px;align-content:start"><div class="panel"><span class="label" id="nodeType">핵심 Q</span><h2 style="margin-top:10px" id="nodeHeading">왜 점심시간마다 식당 대기가 길어질까?</h2><label class="muted" for="nodeText">선택한 노드 내용</label><textarea id="nodeText" class="field">왜 점심시간마다 식당 대기가 길어질까?</textarea><button id="applyNode" style="width:100%">내용 적용</button></div><div class="panel"><h2>구체화 진행도</h2><div class="row"><strong style="font-size:27px" id="pct">20%</strong><span class="muted" id="doneText">1 / 5 답변</span></div><div class="progressbar"><span id="progressBar"></span></div><p class="muted">기본 질문에 답변을 연결하면 진행도가 올라갑니다.</p><div id="questions"></div><button id="addQuestionBtn" class="outline" style="width:100%;margin-top:12px">＋ 질문 블록 추가</button><div style="margin-top:16px"><label id="finalLabel" hidden>최종 해결책 A</label><textarea id="solutionText" hidden></textarea><button id="publishSolution" style="width:100%">완성하고 탐색에 공유</button></div></div><div style="display:none" aria-hidden="true"><button id="saveVersion"></button><div id="versionHistory"></div><textarea id="riskNotes"></textarea><textarea id="experimentNotes"></textarea><button id="saveValidation"></button></div><div class="panel"><h2>의견 요청</h2><p class="muted">질문 일부를 관련 관심사 사용자에게 공유해 의견을 받아보세요.</p><select id="audience" class="field"><option>데이터 분석 관심 사용자</option><option>서비스 기획·UX 관심 사용자</option><option>AI·개발 경험자</option><option>내가 지정한 집단</option></select><textarea id="requestText" class="field">이 문제를 확인하려면 어떤 데이터를 먼저 수집해야 할까요?</textarea><button id="sendRequest" style="width:100%">질문 공유하고 의견 받기</button></div></aside></div>
+</section>
+<section class="view" id="mine"><div class="hero"><div><div class="eyebrow">Your spaces</div><h1>내 스페이스</h1><p>내 질문과 다른 질문에서 파생한 답변을 관리해요.</p></div><button id="mineNew">＋ 새 질문</button></div><div class="two-col"><div class="panel"><h2>계속 발전시키기</h2><div id="myWorkspaces"></div><div class="item legacy-mine"><span class="label">내 질문 · 20%</span><h3>왜 점심시간마다 식당 대기가 길어질까?</h3><p>기본 질문 5개 중 1개에 답변이 연결되어 있어요.</p><button class="secondary" id="continueBuild">스페이스 열기</button></div><div class="item legacy-mine"><span class="label">가져온 질문 · 원본 연결</span><h3>동네 가게의 재고 낭비를 줄일 수 있을까?</h3><p>원본 질문은 그대로 두고, 나만의 답변 방향을 새로 만들 수 있어요.</p><button id="branchQuestion">이 질문에서 답변 만들기</button></div></div><div class="panel"><h2>내가 작성한 해결책</h2><div id="myAnswers"></div><h2 style="margin-top:22px">프로젝트 참여 신청 관리</h2><p class="privacy-note">내가 공유한 프로젝트의 신청을 승인하거나 반려합니다.</p><div id="myProjectApplications"></div><h2 style="margin-top:22px">내 참여 신청</h2><div id="myParticipationRequests"></div><div class="item legacy-mine"><span class="label">A · 해결책</span><h3>판매량 예측 기반 발주 추천</h3><p>요일별 판매량과 재고 소진 속도를 분석해 다음 발주량을 추천합니다.</p><button id="openInventoryA">해결책 상세 보기</button></div><div class="item"><span class="label">가상 포인트</span><h3 id="pointTotal">0 P</h3><div id="pointHistory" class="muted">아직 선정된 답변이 없습니다.</div></div></div></div></section>
+<section class="view" id="inbox"><div class="hero"><div><div class="eyebrow">Feedback inbox</div><h1>의견함</h1><p>요청을 확인하고 답변을 보내거나 채택할 수 있어요.</p></div></div>
+<div class="panel" style="margin-bottom:14px"><div class="row"><div><h2>가상 포인트</h2><strong id="inboxPointTotal" style="font-size:26px">0 P</strong></div><button id="demoSelection" class="secondary">내 답변 채택 시연 +100P</button></div><div id="inboxPointHistory" class="muted">아직 포인트 기록이 없습니다.</div></div>
+<div class="inbox-layout"><div class="panel"><h2>요청 및 답변 목록</h2><div class="inbox-tabs"><button data-inbox-tab="incoming" class="active">받은 요청</button><button data-inbox-tab="sent">내가 보낸 요청</button><button data-inbox-tab="responses">보낸 답변</button></div><div id="inboxEntries"></div></div><div class="panel"><h2 id="inboxDetailHeading">요청을 선택하세요</h2><div id="inboxDetailBody" class="muted">왼쪽 목록에서 요청을 누르면 답변을 확인하거나 작성할 수 있습니다.</div></div></div></section>
+</main>
+<nav class="mobile-nav" aria-label="하단 메뉴"><button class="active" data-view="explore"><span>⌕</span>탐색</button><button data-view="create"><span>＋</span>만들기</button><button data-view="mine"><span>◉</span>내 스페이스</button><button data-view="inbox"><span>✉</span>의견함</button></nav>
+<div id="sharedWorkspaceOverlay" class="shared-overlay" hidden><div class="shared-dialog" role="dialog" aria-modal="true" aria-label="공유된 만들기 스페이스"><div class="shared-top"><div><strong id="sharedTitle">만들기 스페이스</strong><p class="privacy-note">참여 승인자 전용 · 읽기 전용</p></div><button class="outline" id="closeSharedWorkspace">닫기 ✕</button></div><div id="sharedWorkspaceBody"></div></div></div>
+<button id="agentFab" class="agent-fab" aria-label="아이디어 AI 에이전트 열기" aria-expanded="false">✦</button><section id="agentChat" class="agent-chat" hidden aria-label="아이디어 에이전트 채팅"><div class="agent-head"><div><strong>✦ QnASpace 아이디어 에이전트</strong><small>현재: 로컬 시연 · 실제 AI 미연결</small></div><button id="agentClose" class="agent-x" aria-label="채팅 닫기">✕</button></div><div id="agentMessages" class="agent-messages" aria-live="polite"></div><div class="agent-suggestions"><button data-agent="지금 아이디어의 부족한 점을 알려줘">약점 점검</button><button data-agent="다음에 검증할 가설을 제안해줘">검증 가설</button><button data-agent="구체화 질문을 추천해줘">후속 질문</button></div><form id="agentForm" class="agent-form"><input id="agentInput" placeholder="아이디어에 대해 질문해 보세요" aria-label="에이전트에게 질문" required><button type="submit">전송</button></form></section>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+'use strict';
+const $=id=>document.getElementById(id);
+let currentView='explore', zoom=1, selectedCategory='all', selectedKind='all', selectedQuestion=null;
+const categories=[
+ {name:'기술·AI',icon:'✦',desc:'데이터, AI, 디지털 도구',count:28,x:70,y:60,subs:[
+  {name:'데이터 분석',desc:'데이터로 문제를 발견하고 설명하기',x:45,y:40,questions:[0]},
+  {name:'AI 서비스',desc:'AI를 일상 문제에 연결하기',x:310,y:35,questions:[1]},
+  {name:'앱·웹 도구',desc:'사용하기 쉬운 디지털 경험',x:45,y:205,questions:[2]}]},
+ {name:'생활·편의',icon:'⌂',desc:'매일 겪는 불편과 작은 개선',count:34,x:390,y:60,subs:[
+  {name:'시간·동선',desc:'기다림과 이동의 낭비 줄이기',x:360,y:45,questions:[0]},
+  {name:'생활 정보',desc:'필요한 정보를 제때 찾기',x:625,y:45,questions:[4]},
+  {name:'건강·돌봄',desc:'일상 속 준비와 돌봄',x:360,y:210,questions:[4]}]},
+ {name:'사회·환경',icon:'◎',desc:'함께 사는 환경과 공공 문제',count:19,x:710,y:60,subs:[
+  {name:'자원·분리배출',desc:'버리는 순간의 혼란 줄이기',x:675,y:45,questions:[2]},
+  {name:'지역 문제',desc:'동네에서 시작하는 변화',x:675,y:210,questions:[4]}]},
+ {name:'경제·경영',icon:'↗',desc:'가게, 비용, 자원 활용',count:22,x:70,y:350,subs:[
+  {name:'소상공인',desc:'작은 가게 운영을 돕는 방법',x:45,y:390,questions:[1]},
+  {name:'수요·재고',desc:'필요한 만큼 준비하고 낭비 줄이기',x:310,y:390,questions:[1]}]},
+ {name:'교육·학습',icon:'▤',desc:'배움과 협업의 방식',count:16,x:390,y:350,subs:[
+  {name:'팀 프로젝트',desc:'역할과 진행을 투명하게 나누기',x:360,y:390,questions:[3]},
+  {name:'학습 도구',desc:'개인에게 맞는 학습 지원',x:625,y:390,questions:[3]}]},
+ {name:'문화·예술',icon:'♫',desc:'취향, 창작, 문화생활',count:12,x:710,y:350,subs:[
+  {name:'취향 발견',desc:'나에게 맞는 콘텐츠 찾기',x:675,y:390,questions:[2]},
+  {name:'창작·표현',desc:'아이디어를 함께 발전시키기',x:675,y:555,questions:[3]}]}
+];
+const qs=[
+ {type:'Q · 문제',title:'왜 점심시간마다 식당에서 오래 기다려야 할까?',body:'점심시간 대기 문제를 관찰하고, 대기시간 예측과 분산이 실제로 도움이 되는지 구체화한 질문입니다.',tags:['데이터 분석','생활 개선'],cat:'생활·편의'},
+ {type:'Q · 문제',title:'동네 가게의 재고 낭비를 줄일 수 있을까?',body:'판매 흐름을 예측해 발주량을 추천하는 도구를 생각해 볼 수 있어요. 실제 수요와 폐기량을 연결해 검증하는 것이 핵심입니다.',tags:['소상공인','AI'],cat:'경제·경영'},
+ {type:'Q · 문제',title:'분리배출 안내는 왜 매번 헷갈릴까?',body:'제품 재질과 지역별 배출 규칙을 연결해, 버리는 순간에 필요한 안내를 제공하는 경험을 탐색합니다.',tags:['환경','UX'],cat:'사회·환경'},
+ {type:'Q · 문제',title:'팀 프로젝트 역할 불균형을 초기에 발견할 수 있을까?',body:'작업량과 진행 상황을 부담 없이 공유해 역할 불균형을 조기에 발견하는 방법을 탐색합니다.',tags:['협업','교육'],cat:'교육·학습'},
+ {type:'Q · 문제',title:'처음 가는 병원에서 무엇을 준비해야 할까?',body:'방문 목적에 따라 필요한 준비사항을 정리해 처음 방문하는 사람의 불확실성을 줄일 수 있을까요?',tags:['생활 정보','UX'],cat:'생활·편의'}
+];
+const subsByCat={};
+let detailOpen=false;
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove('show'),2300)}
+function switchView(id){currentView=id;document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.view==='mine'&&typeof renderMine==='function')renderMine();switchView(b.dataset.view)}));
+
+const groupLayouts = {
+ '기술·AI': {x:70,y:70,w:610,h:400,tagX:365,tagY:245},
+ '생활·편의': {x:760,y:70,w:610,h:400,tagX:1060,tagY:245},
+ '사회·환경': {x:70,y:555,w:610,h:400,tagX:365,tagY:745},
+ '경제·경영': {x:760,y:555,w:610,h:400,tagX:1060,tagY:745},
+ '교육·학습': {x:420,y:1030,w:330,h:1,tagX:585,tagY:1010},
+ '문화·예술': {x:800,y:1030,w:330,h:1,tagX:965,tagY:1010}
+};
+const boardQuestions = [
+ {type:'Q · 문제',title:'왜 점심시간마다 식당에서 오래 기다려야 할까?',body:'점심시간 대기 문제를 관찰하고, 대기시간 예측과 분산이 실제로 도움이 되는지 구체화한 질문입니다.',tags:['데이터 분석','생활 개선'],cat:'생활·편의'},
+ {type:'Q · 문제',title:'동네 가게의 재고 낭비를 줄일 수 있을까?',body:'판매 흐름을 예측해 발주량을 추천하는 도구를 생각해 볼 수 있어요. 실제 수요와 폐기량을 연결해 검증하는 것이 핵심입니다.',tags:['소상공인','AI'],cat:'경제·경영'},
+ {type:'Q · 문제',title:'분리배출 안내는 왜 매번 헷갈릴까?',body:'제품 재질과 지역별 배출 규칙을 연결해, 버리는 순간에 필요한 안내를 제공하는 경험을 탐색합니다.',tags:['환경','UX'],cat:'사회·환경'},
+ {type:'Q · 문제',title:'팀 프로젝트 역할 불균형을 초기에 발견할 수 있을까?',body:'작업량과 진행 상황을 부담 없이 공유해 역할 불균형을 조기에 발견하는 방법을 탐색합니다.',tags:['협업','교육'],cat:'교육·학습'},
+ {type:'Q · 문제',title:'처음 가는 병원에서 무엇을 준비해야 할까?',body:'방문 목적에 따라 필요한 준비사항을 정리해 처음 방문하는 사람의 불확실성을 줄일 수 있을까요?',tags:['생활 정보','UX'],cat:'생활·편의'},
+ {type:'Q · 문제',title:'AI 답변을 어디까지 믿어도 될까?',body:'AI 답변의 출처와 불확실성을 사용자가 이해하기 쉽게 보여주는 방법을 탐색합니다.',tags:['AI','신뢰'],cat:'기술·AI'},
+ {type:'A · 해결책',title:'반복 업무 기록 기반 자동화 우선순위 추천',body:'작업 시간을 기록하고 반복 패턴을 찾아 작은 자동화부터 검증합니다.',tags:['자동화','업무'],cat:'기술·AI'},
+ {type:'Q · 문제',title:'동네 행사 정보를 놓치지 않으려면?',body:'지역마다 흩어진 행사 정보를 관심사와 일정에 맞춰 모아볼 수 있을까요?',tags:['지역','정보'],cat:'사회·환경'},
+ {type:'Q · 문제',title:'생활비가 어디서 새는지 쉽게 알 수 있을까?',body:'지출을 기록하는 부담을 줄이고, 반복되는 소비 패턴을 발견하는 방법을 탐색합니다.',tags:['생활비','데이터'],cat:'경제·경영'},
+ {type:'A · 해결책',title:'데이터 구조별 그래프 추천 도우미',body:'데이터의 열과 목적을 바탕으로 알맞은 그래프 후보를 추천하는 흐름을 생각합니다.',tags:['데이터 분석','학습'],cat:'기술·AI'},
+ {type:'Q · 문제',title:'취향에 맞는 소규모 전시를 찾기 어려운 이유는?',body:'대형 플랫폼에 잘 드러나지 않는 작은 전시와 지역 창작자를 발견하는 방법을 탐색합니다.',tags:['문화','발견'],cat:'문화·예술'},
+ {type:'Q · 문제',title:'온라인 강의는 왜 끝까지 듣기 어려울까?',body:'학습 목표와 집중 흐름을 바탕으로 작은 단위의 학습을 돕는 방법을 탐색합니다.',tags:['학습','습관'],cat:'교육·학습'}
+];
+qs.splice(0,qs.length,...boardQuestions);
+qs.forEach((q,i)=>{q.id='entry-'+i;q.kind=q.type.startsWith('A')?'A':'Q';q.shared=true;q.feedback=[]});
+qs.push({id:'answer-restaurant',kind:'A',type:'A · 해결책',title:'실시간 대기 예측과 식당 분산 안내',body:'식당별 대기 인원과 최근 회전 시간을 수집해 예상 대기 시간을 계산하고, 주변의 덜 붐비는 식당을 추천합니다.',tags:['대기 예측','서비스'],cat:'생활·편의',parentQId:'entry-0',shared:true,feedback:[]});
+qs.push({id:'answer-inventory',kind:'A',type:'A · 해결책',title:'판매량 예측 기반 발주 추천',body:'최근 판매량, 요일, 날씨와 폐기 기록을 활용해 다음 발주량을 추천하고, 폐기 위험이 높은 품목을 미리 알립니다.',tags:['수요 예측','소상공인'],cat:'경제·경영',parentQId:'entry-1',shared:true,feedback:[]});
+qs[6].parentQId='entry-5';qs[9].parentQId='entry-3';
+let points=0;
+const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function resetMap(){
+ zoom=1;selectedCategory='all';selectedKind='all';
+ document.querySelectorAll('#typeFilters button').forEach(b=>b.classList.toggle('active',b.dataset.kind==='all'));
+ $('zoomRange').value='1';
+ $('detailPanel').classList.remove('show');
+ renderMap();
+}
+function renderMap(){
+ const canvas=$('mapCanvas'),stage=$('mapStage');
+ if(!canvas||!stage)return;
+ canvas.innerHTML='';
+ const positions={
+  '기술·AI':[[105,125],[375,125],[105,310],[375,310]],
+  '생활·편의':[[805,125],[1075,125],[805,310],[1075,310]],
+  '사회·환경':[[105,610],[375,610],[105,795],[375,795]],
+  '경제·경영':[[805,610],[1075,610],[805,795],[1075,795]],
+  '교육·학습':[[105,1095],[375,1095],[105,1280],[375,1280]],
+  '문화·예술':[[805,1095],[1075,1095],[805,1280],[1075,1280]]
+ };
+ const layouts={};
+ ['기술·AI','생활·편의','사회·환경','경제·경영','교육·학습','문화·예술'].forEach((name,i)=>{
+   const col=i%2,row=Math.floor(i/2);
+   layouts[name]={x:65+col*700,y:65+row*485,w:625,h:430,tx:377+col*700,ty:280+row*485};
+ });
+ // Rounded, organic cluster backgrounds remain in the same positions at every zoom.
+ categories.forEach(c=>{
+  const g=layouts[c.name]||{x:50,y:50,w:550,h:380,tx:300,ty:220};
+  const halo=document.createElement('div');
+  halo.className='group-halo';
+  halo.style.left=g.x+'px';halo.style.top=g.y+'px';
+  halo.style.width=g.w+'px';halo.style.height=g.h+'px';
+  halo.dataset.cat=c.name;halo.hidden=selectedCategory!=='all'&&c.name!==selectedCategory;
+  canvas.appendChild(halo);
+ });
+ // All Q&A cards are always in the same board; visibility changes by zoom level only.
+ qs.forEach((q,i)=>{
+  const list=positions[q.cat]||[[70+(i%3)*270,80+Math.floor(i/3)*180]];
+  const same=qs.slice(0,i).filter(x=>x.cat===q.cat).length;
+  const pos=[list[same%list.length][0]+Math.floor(same/list.length)*24,list[same%list.length][1]+Math.floor(same/list.length)*38];
+  const card=document.createElement('button');
+  card.type='button';card.className='qcard '+(q.kind==='A'?'postit-a':'postit-q');
+  card.hidden=(selectedKind!=='all'&&q.kind!==selectedKind)||(selectedCategory!=='all'&&q.cat!==selectedCategory);card.dataset.q=String(i);
+  card.style.left=pos[0]+'px';card.style.top=pos[1]+'px';
+  card.style.textAlign='left';card.style.color='var(--ink)';
+  card.innerHTML=`<span class="type">${esc(q.type)}</span><h3>${esc(q.title)}</h3><p>${esc(q.body)}</p><div class="tags">${q.tags.map(t=>`<span>${esc(t)}</span>`).join('')}</div>`;
+  card.addEventListener('click',()=>showDetail(i));
+  canvas.appendChild(card);
+ });
+ // Zoom level 1: category tags cover the Q&A cards. Level 2: rounded subtopic chips.
+ categories.forEach(c=>{
+  const g=layouts[c.name]||{tx:300,ty:220};
+  const related=qs.filter(q=>q.cat===c.name&&(selectedKind==='all'||q.kind===selectedKind));
+  const tag=document.createElement('div');
+  tag.className='group-tag';tag.dataset.cat=c.name;tag.hidden=selectedCategory!=='all'&&c.name!==selectedCategory;
+  tag.style.left=g.tx+'px';tag.style.top=g.ty+'px';
+  tag.innerHTML=`<strong>${c.icon} ${c.name}</strong><span>${related.length}개 ${selectedKind==='all'?'Q&A':selectedKind} · 확대해 탐색</span>`;
+  canvas.appendChild(tag);
+
+  const topics=[...new Set(related.flatMap(q=>q.tags))].slice(0,4);
+  topics.forEach((topic,j)=>{
+   const chip=document.createElement('div');
+   chip.className='topic-chip';
+   chip.dataset.cat=c.name;chip.hidden=selectedCategory!=='all'&&c.name!==selectedCategory;
+   chip.style.left=(g.tx-125+(j%2)*150)+'px';
+   chip.style.top=(g.ty-44+Math.floor(j/2)*52)+'px';
+   chip.textContent=topic;
+   canvas.appendChild(chip);
+  });
+ });
+ const scales={1:.53,2:1};
+ const scale=scales[zoom]||.58;
+ canvas.style.height='1510px';canvas.style.transform=`scale(${scale})`;
+ stage.style.width=(1500*scale)+'px';
+ stage.style.height=(1510*scale)+'px';
+ canvas.dataset.zoom=String(zoom);
+ canvas.classList.toggle('zoomed-out',zoom===1);
+ canvas.classList.toggle('zoomed-mid',false);
+ canvas.classList.toggle('zoomed-in',zoom===2);
+ $('zoomRange').value=String(zoom);
+ $('zoomLabel').textContent=zoom===1?'1/2 · 분야 전체':'2/2 · 개별 Q&A';
+ $('mapTitle').textContent=selectedCategory==='all'?'전체 Q&A 지도':selectedCategory+' · Q&A 지도';
+ $('mapHint').textContent=zoom===1?'카테고리 태그만 표시됩니다. 확대해 포스트잇을 확인하세요.':'개별 Q&A 포스트잇을 눌러 상세 내용을 확인하세요.';
+ $('mapStatus').textContent=`${qs.filter(q=>(selectedKind==='all'||q.kind===selectedKind)&&(selectedCategory==='all'||q.cat===selectedCategory)).length}개 ${selectedKind==='all'?'Q&A':selectedKind} · ${categories.length}개 분야 · ${zoom}/2단계`;
+ $('backMap').hidden=zoom===1;
+}
+document.querySelectorAll('#typeFilters button').forEach(b=>b.addEventListener('click',()=>{selectedKind=b.dataset.kind;document.querySelectorAll('#typeFilters button').forEach(x=>x.classList.toggle('active',x===b));$('detailPanel').classList.remove('show');renderMap()}));
+function showDetail(i){
+ const q=qs[i];if(!q)return;selectedQuestion=i;
+ $('detailLabel').textContent=q.type;$('detailTitle').textContent=q.title;$('detailBody').textContent=q.body;
+ $('detailTags').innerHTML=q.tags.map(t=>`<span>${esc(t)}</span>`).join('');
+ const related=q.kind==='A'?qs.find(x=>x.id===q.parentQId):qs.find(x=>x.parentQId===q.id);
+ $('relatedQA').innerHTML=related?`<strong>${q.kind==='A'?'원본 Q':'파생 A'}</strong><button class="outline" id="openRelated">${esc(related.title)}</button>`:'<span class="muted">연결된 Q/A가 아직 없습니다.</span>';
+ if(related)$('openRelated').onclick=()=>showDetail(qs.indexOf(related));
+ $('growAnswer').style.display=q.kind==='Q'?'':'none';
+ $('feedbackArea').style.display=q.kind==='A'?'block':'none';
+ renderProjectAccess(q);renderFeedback();$('detailPanel').classList.add('show');$('detailPanel').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function renderFeedback(){
+ const q=qs[selectedQuestion];if(!q||q.kind!=='A')return;
+ $('feedbackList').innerHTML=(q.feedback||[]).map((f,i)=>`<div class="item"><p>${esc(f.text)}</p><span class="muted">${f.selected?'선정됨 · +100 P 지급':'개선 제안'}</span>${q.owner==='me'&&!f.selected?`<button class="outline" data-select="${i}">이 의견 선정</button>`:''}</div>`).join('')||'<p class="muted">아직 의견이 없습니다. 첫 번째 개선 의견을 남겨보세요.</p>';
+ $('feedbackList').querySelectorAll('[data-select]').forEach(b=>b.onclick=()=>{
+  const f=q.feedback[Number(b.dataset.select)];if(f.selected)return;f.selected=true; // reward belongs to the contributor, not the selecting owner
+  renderFeedback();toast('의견을 선정하고 기여자에게 가상 포인트 100 P를 지급했어요.');
+ });
+}
+$('submitFeedback').addEventListener('click',()=>{
+ const val=$('feedbackText').value.trim(),q=qs[selectedQuestion];if(!val||!q||q.kind!=='A')return toast('의견을 입력해 주세요.');
+ q.feedback.push({text:val,selected:false});$('feedbackText').value='';renderFeedback();toast('개선 의견이 등록됐어요.');
+});
+function setZoomStep(next){
+ const target=Math.max(1,Math.min(2,Math.round(next)));
+ if(target===zoom)return;
+ zoom=target;
+ renderMap();
+}
+$('zoomRange').addEventListener('input',e=>setZoomStep(Number(e.target.value)));
+$('zoomIn').addEventListener('click',()=>setZoomStep(zoom===2?1:zoom+1));
+$('backMap').addEventListener('click',()=>setZoomStep(1));
+$('resetMap').addEventListener('click',resetMap);
+$('categoryFilters').querySelectorAll('[data-cat]').forEach(b=>b.addEventListener('click',()=>{
+ selectedCategory=b.dataset.cat;
+ $('categoryFilters').querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b));
+ if(selectedCategory!=='all'){
+   const card=Array.from(document.querySelectorAll('.qcard')).find(el=>qs[Number(el.dataset.q)]?.cat===selectedCategory);
+   if(card){const v=$('mapViewport');v.scrollTo({left:Math.max(0,card.offsetLeft-80),top:Math.max(0,card.offsetTop-70),behavior:'smooth'});}
+ }
+ renderMap();
+}));
+function search(){
+ const term=$('searchInput').value.trim().toLowerCase();
+ if(!term){toast('검색어를 입력해 주세요.');return}
+ const found=qs.findIndex(q=>(q.title+' '+q.body+' '+q.tags.join(' ')+' '+q.cat).toLowerCase().includes(term));
+ if(found<0){toast('일치하는 질문이 없어요. 다른 단어로 검색해 보세요.');return}
+ selectedCategory=qs[found].cat;zoom=2;$('zoomRange').value='2';
+ $('categoryFilters').querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.dataset.cat===selectedCategory));
+ renderMap();setTimeout(()=>{const card=document.querySelector(`.qcard[data-q="${found}"]`);if(card){$('mapViewport').scrollTo({left:Math.max(0,card.offsetLeft-40),top:Math.max(0,card.offsetTop-40),behavior:'smooth'});}showDetail(found)},80)
+}
+$('searchBtn').addEventListener('click',search);$('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')search()});
+$('closeDetail').addEventListener('click',()=>$('detailPanel').classList.remove('show'));
+// Each Q and A owns a completely independent build workspace.
+const defaultPrompts=['어떤 상황에서 발생하나요?','문제의 주요 원인은 무엇인가요?','누가 영향을 받나요?','현재 어떤 대안이 있나요?','어떻게 검증할 수 있나요?'];
+const answerPrompts=['해결책의 핵심 기능은 무엇인가요?','누가 어떻게 사용하나요?','어떤 데이터·자원이 필요한가요?','실행 단계는 무엇인가요?','효과를 어떻게 검증하나요?'];
+const workspaces=new Map();let activeId=null,selected='base',connect=false,from=null,selectedEdge=null,edges=[],nodeNames={},done=new Set(),extraQuestions=[],questionAnswers={};
+const uid=prefix=>prefix+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7);
+function createSpace(id,kind,title,parentQId='',sample=false){
+ const prompts=kind==='A'?answerPrompts:defaultPrompts;
+ const w={id,kind,title:title||'',parentQId,publicSummary:'',privatePlan:'',riskNotes:'',experimentNotes:'',versions:[],cat:(qs.find(q=>q.id===parentQId)?.cat||qs.find(q=>q.id===id)?.cat||'생활·편의'),prompts:[...prompts],extras:[],nodeNames:{base:title||'',...Object.fromEntries(prompts.map((x,i)=>['q'+(i+1),x]))},edges:prompts.map((_,i)=>['base','q'+(i+1)]),done:[],questionAnswers:{},positions:{},final:'',shared:false};
+ if(sample&&kind==='Q'){w.nodeNames.q1='점심 12~13시, 학교 주변 식당';w.questionAnswers.q1='점심 12~13시, 학교 주변 식당';w.done=['q1'];w.nodeNames.aq1=w.questionAnswers.q1;w.edges.push(['q1','aq1']);}
+ workspaces.set(id,w);return w;
+}
+createSpace('entry-0','Q','왜 점심시간마다 식당 대기가 길어질까?','',true);
+createSpace('answer-inventory','A','판매량 예측 기반 발주 추천','entry-1');
+function saveCurrent(){const w=workspaces.get(activeId);if(!w)return;w.cat=$('workspaceCategory').value;w.nodeNames={...nodeNames};w.edges=edges.map(x=>[...x]);w.done=[...done];w.extras=extraQuestions.map(x=>[...x]);w.questionAnswers={...questionAnswers};w.final=$('solutionText').value;w.publicSummary=$('publicSummary').value;w.privatePlan=$('privatePlan').value;w.riskNotes=$('riskNotes').value;w.experimentNotes=$('experimentNotes').value;w.positions={};document.querySelectorAll('#mind .node').forEach(n=>w.positions[n.dataset.id]=[n.style.left,n.style.top]);if(nodeNames.base)w.title=nodeNames.base;}
+function draw(){const svg=$('lines');svg.innerHTML='';edges.forEach((edge,i)=>{const a=[...document.querySelectorAll('#mind .node')].find(n=>n.dataset.id===edge[0]),b=[...document.querySelectorAll('#mind .node')].find(n=>n.dataset.id===edge[1]);if(!a||!b)return;const x=a.offsetLeft+a.offsetWidth/2,y=a.offsetTop+a.offsetHeight/2,X=b.offsetLeft+b.offsetWidth/2,Y=b.offsetTop+b.offsetHeight/2,p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('d',`M${x},${y} C${x},${(y+Y)/2} ${X},${(y+Y)/2} ${X},${Y}`);p.setAttribute('stroke',i===selectedEdge?'#6558d3':'#b6b2e5');p.setAttribute('stroke-width',i===selectedEdge?'4':'2');p.setAttribute('fill','none');p.style.pointerEvents='stroke';p.addEventListener('click',e=>{e.stopPropagation();selectedEdge=i;draw()});svg.appendChild(p)});$('lineStatus').textContent=`연결 ${edges.length}개`}
+function chooseNode(id){if(connect){if(!from){from=id;toast('시작 노드를 선택했어요.')}else if(from!==id){if(!edges.some(e=>e[0]===from&&e[1]===id))edges.push([from,id]);from=null;connect=false;$('connectBtn').textContent='연결 모드: OFF';draw()}return}selected=id;document.querySelectorAll('#mind .node').forEach(n=>n.classList.toggle('selected',n.dataset.id===id));$('nodeHeading').textContent=nodeNames[id]||'내용을 입력하세요';$('nodeText').value=nodeNames[id]||'';$('nodeType').textContent=id==='base'?(workspaces.get(activeId).kind==='Q'?'핵심 Q':'핵심 A'):id.startsWith('q')?'구체화 질문':'연결된 답변';}
+function enableDrag(n){let sx,sy,l,t,moved=false;n.addEventListener('pointerdown',e=>{if(connect||e.target.closest('button'))return;sx=e.clientX;sy=e.clientY;l=n.offsetLeft;t=n.offsetTop;moved=false;n.setPointerCapture(e.pointerId)});n.addEventListener('pointermove',e=>{if(!n.hasPointerCapture(e.pointerId))return;const dx=e.clientX-sx,dy=e.clientY-sy;if(Math.abs(dx)+Math.abs(dy)>6)moved=true;if(moved){n.style.left=(l+dx)+'px';n.style.top=(t+dy)+'px';draw()}});n.addEventListener('pointerup',()=>{if(moved)n.dataset.dragged='yes';setTimeout(()=>delete n.dataset.dragged,100)})}
+function bindNode(n){n.addEventListener('click',()=>{if(!n.dataset.dragged)chooseNode(n.dataset.id)});enableDrag(n)}
+function addNode(id,text,kind='question',position){const n=document.createElement('div');n.className='node'+(kind==='answer'?' answer':'');n.dataset.id=id;n.style.left=position?.[0]||((id==='base'?370:90+(parseInt(id.replace(/\D/g,''))||0)%3*260)+'px');n.style.top=position?.[1]||(id==='base'?'30px':kind==='answer'?'490px':'210px');const small=document.createElement('small');small.textContent=id==='base'?(workspaces.get(activeId).kind==='A'?'핵심 A':'핵심 Q'):kind==='answer'?'연결된 답변':'구체화 질문';const b=document.createElement('b');b.textContent=text||'내용을 입력하세요';const em=document.createElement('em');em.textContent='선택하여 편집';n.append(small,b,em);$('mind').append(n);bindNode(n);return n}
+function renderVersions(w){const el=$('versionHistory');if(el)el.textContent=(w.versions||[]).map(v=>v.date+' · '+v.title).join(' / ');}
+function openWorkspace(id){if(activeId&&workspaces.has(activeId))saveCurrent();const w=workspaces.get(id);if(!w)return toast('작업 공간을 찾을 수 없어요.');activeId=id;selected='base';connect=false;from=null;selectedEdge=null;edges=w.edges.map(x=>[...x]);nodeNames={...w.nodeNames};done=new Set(w.done);extraQuestions=w.extras.map(x=>[...x]);questionAnswers={...w.questionAnswers};$('mind').querySelectorAll('.node').forEach(n=>n.remove());const ids=['base',...w.prompts.map((_,i)=>'q'+(i+1)),...extraQuestions.map(x=>x[0]),...Object.keys(nodeNames).filter(x=>x.startsWith('a')||x.startsWith('n'))];[...new Set(ids)].forEach((key,i)=>{const answer=key.startsWith('a')||key.startsWith('n');addNode(key,nodeNames[key],answer?'answer':'question',w.positions[key]||[key==='base'?'370px':(80+(i-1)%3*270)+'px',key==='base'?'30px':(answer?'510px':(205+Math.floor((i-1)/3)*140)+'px')])});$('solutionText').value=w.final;$('publicSummary').value=w.publicSummary||'';$('privatePlan').value=w.privatePlan||'';$('riskNotes').value=w.riskNotes||'';$('experimentNotes').value=w.experimentNotes||'';renderVersions(w);$('workspaceCategory').value=w.cat||'생활·편의';$('workspaceKind').textContent=w.kind==='Q'?'Q · 질문 만들기':'A · 해결책 만들기';$('workspaceTitle').textContent=w.title|| (w.kind==='Q'?'새 질문 (제목 미입력)':'새 해결책 (제목 미입력)');$('workspaceMapTitle').textContent=w.kind==='Q'?'질문 구체화 지도':'해결책 구체화 지도';$('finalLabel').textContent=w.kind==='Q'?'최종 문제 정의 · Q':'최종 해결책 · A';$('publishSolution').textContent=w.kind==='Q'?'Q 완성하고 탐색에 공유':'A 완성하고 탐색에 공유';const origin=qs.find(q=>q.id===w.parentQId);$('workspaceOrigin').textContent=origin?'원본 Q: '+origin.title+' · 이 질문을 바탕으로 A를 발전시키는 중':'각 작업 공간은 독립적으로 저장됩니다.';$('nodeText').value=nodeNames.base||'';chooseNode('base');renderQuestions();progress();draw();switchView('create');renderMine()}
+function progress(){const total=5+extraQuestions.length,pct=total?Math.round(done.size/total*100):0;$('pct').textContent=pct+'%';$('progressBar').style.width=pct+'%';$('doneText').textContent=`${done.size} / ${total} 구체화`}
+function renderQuestions(){const w=workspaces.get(activeId),list=[...w.prompts.map((x,i)=>['q'+(i+1),nodeNames['q'+(i+1)]||x]),...extraQuestions],el=$('questions');el.innerHTML='';list.forEach(([id,q])=>{const row=document.createElement('div');row.className='qrow'+(done.has(id)?' done':'');const label=document.createElement('label'),input=document.createElement('input'),span=document.createElement('span');input.type='checkbox';input.checked=done.has(id);span.textContent=q;label.append(input,span);row.append(label);const note=document.createElement('div');note.className='muted';note.style.marginLeft='24px';note.textContent=done.has(id)?'작성됨: '+questionAnswers[id]:'눌러서 구체화 내용 작성';row.append(note);input.addEventListener('change',()=>{if(input.checked){const answer=prompt('이 항목을 구체화할 내용을 입력하세요.',questionAnswers[id]||'');if(!answer?.trim()){input.checked=false;return}done.add(id);questionAnswers[id]=answer.trim();const aid='a'+id;nodeNames[aid]=answer.trim();let n=[...document.querySelectorAll('#mind .node')].find(n=>n.dataset.id===aid);if(!n)n=addNode(aid,answer.trim(),'answer',[(80+list.findIndex(x=>x[0]===id)%3*270)+'px','510px']);else n.querySelector('b').textContent=answer.trim();if(!edges.some(e=>e[0]===id&&e[1]===aid))edges.push([id,aid]);}else done.delete(id);renderQuestions();progress();draw()});el.append(row)})}
+function renderMine(){const a=$('myWorkspaces'),b=$('myAnswers');a.innerHTML='';b.innerHTML='';workspaces.forEach(w=>{const el=document.createElement('div');el.className='item';const origin=qs.find(q=>q.id===w.parentQId);el.innerHTML=`<span class="label">${w.kind} · ${w.done.length}/${5+w.extras.length} 구체화${w.shared?' · 공유됨':''}</span><h3>${esc(w.title||'제목 없는 새 '+w.kind)}</h3><p>${w.kind==='A'?(origin?'원본 Q: '+esc(origin.title):'독립적인 해결책'):'질문을 구체화하는 작업 공간'}</p><button class="secondary">${w.kind==='A'?'해결책 만들기 스페이스 열기':'질문 스페이스 열기'}</button>`;el.querySelector('button').onclick=()=>openWorkspace(w.id);(w.kind==='A'?b:a).append(el)});renderProjectApplications()}
+function newQuestion(){const id=uid('my-q');createSpace(id,'Q','');openWorkspace(id);toast('새 빈 Q 스페이스를 만들었어요. 기존 식당 대기 내용은 가져오지 않았어요.')}
+function newAnswer(parentQId='',title=''){const id=uid('my-a');createSpace(id,'A',title,parentQId);openWorkspace(id);toast('독립적인 A 구체화 스페이스를 만들었어요.')}
+$('connectBtn').addEventListener('click',()=>{connect=!connect;from=null;$('connectBtn').textContent='연결 모드: '+(connect?'ON':'OFF')});
+$('newNodeBtn').addEventListener('click',()=>{const id=uid('n');nodeNames[id]='새 내용';addNode(id,'새 내용','answer',['380px','520px']);chooseNode(id);draw()});
+$('applyNode').addEventListener('click',()=>{const val=$('nodeText').value.trim();if(!val)return toast('내용을 입력해 주세요.');nodeNames[selected]=val;const n=[...document.querySelectorAll('#mind .node')].find(n=>n.dataset.id===selected);if(n)n.querySelector('b').textContent=val;$('nodeHeading').textContent=val;if(selected==='base')$('workspaceTitle').textContent=val;renderQuestions();draw();saveCurrent();renderMine();toast('이 스페이스에 저장했어요.')});
+$('deleteLineBtn').addEventListener('click',()=>{if(selectedEdge===null)return toast('먼저 연결선을 선택하세요.');edges.splice(selectedEdge,1);selectedEdge=null;draw()});
+$('addQuestionBtn').addEventListener('click',()=>{const txt=prompt('추가할 구체화 질문을 입력하세요.');if(!txt?.trim())return;const id=uid('qextra');extraQuestions.push([id,txt.trim()]);nodeNames[id]=txt.trim();addNode(id,txt.trim(),'question',['80px',(620+extraQuestions.length*100)+'px']);edges.push(['base',id]);renderQuestions();progress();draw();saveCurrent()});
+$('newBlankQ').onclick=newQuestion;$('newBlankA').onclick=()=>newAnswer();$('saveWorkspace').onclick=()=>{saveCurrent();renderMine();toast('현재 작업을 저장했어요.')};
+$('publishSolution').addEventListener('click',()=>{const w=workspaces.get(activeId),body=$('solutionText').value.trim()||Object.values(questionAnswers).filter(Boolean).join(' / ')||nodeNames.base||'';$('solutionText').value=body;saveCurrent();if(!w.title.trim())return toast('중심 노드를 선택해 제목을 입력하고 내용 적용을 눌러 주세요.');if(!w.publicSummary.trim())return toast('공개 소개를 작성해 주세요. 전체 기획 대신 이 소개만 공개됩니다.');let q=qs.find(x=>x.id===w.id);if(!q){q={id:w.id,kind:w.kind,type:w.kind==='Q'?'Q · 문제':'A · 해결책',title:w.title,body:w.publicSummary,privatePlan:w.privatePlan,visibility:'partial',tags:['내가 공유한 '+w.kind],cat:w.cat||'생활·편의',parentQId:w.parentQId,shared:true,owner:'me',feedback:[]};qs.push(q)}else{q.title=w.title;q.body=w.publicSummary;q.privatePlan=w.privatePlan;q.visibility='partial';q.cat=w.cat||'생활·편의';q.shared=true}w.shared=true;{const project=ensureProject(q);project.summary=w.publicSummary;project.privatePlan=w.privatePlan;}renderMine();switchView('explore');zoom=2;renderMap();showDetail(qs.indexOf(q));toast('현재 '+w.kind+'를 탐색에 공유했어요.')});
+$('sendRequest').addEventListener('click',()=>{
+ const txt=$('requestText').value.trim();if(!txt)return toast('공유할 질문을 입력해 주세요.');
+ const req={id:uid('req'),title:txt,author:'나',audience:$('audience').value,replies:[],status:'대기'};
+ inboxRequests.unshift(req);renderInbox('sent',req.id);toast('요청을 보냈어요. 의견함에서 확인할 수 있습니다.');
+});
+$('headerNew').onclick=newQuestion;$('mineNew').onclick=newQuestion;$('continueBuild').onclick=()=>openWorkspace('entry-0');$('branchQuestion').onclick=()=>newAnswer('entry-1');$('openInventoryA').onclick=()=>openWorkspace('answer-inventory');
+$('growAnswer').onclick=()=>{const q=qs[selectedQuestion];if(!q||q.kind!=='Q')return;newAnswer(q.id)};
+// Mine links open the original workspace, not the Explore detail card.
+const oldSwitch=switchView;
+// v7 inbox simulation: requests, replies, statuses and activity ledger.
+const inboxRequests=[
+ {id:'r1',title:'학교 앞 식당의 대기 시간을 어떻게 예측할 수 있을까요?',author:'민지',audience:'데이터 분석',status:'대기',replies:[{id:'r1a',author:'다른 사용자',text:'시간대별 입장 인원과 테이블 회전 시간을 기록해 평균 대기 시간을 추정해 보세요.',status:'대기'}]},
+ {id:'r2',title:'작은 가게의 재고 폐기량을 줄일 실용적인 방법이 궁금해요.',author:'서준',audience:'소상공인',status:'대기',replies:[]},
+ {id:'r3',title:'팀 프로젝트에서 업무 분배를 공정하게 확인하려면?',author:'하린',audience:'교육·학습',status:'대기',replies:[]},
+ {id:'s1',title:'대기시간 예측에 어떤 데이터를 먼저 수집해야 할까요?',author:'나',audience:'데이터 분석 관심 사용자',status:'대기',replies:[{id:'s1a',author:'민지',text:'시간대별 입장·퇴장 기록을 우선 수집하고, 요일별로 나눠 비교해 보세요.',status:'대기'},{id:'s1b',author:'서준',text:'POS 주문 시각과 주문 완료 시각의 차이를 활용할 수 있어요.',status:'대기'}]},
+ {id:'s2',title:'재고 예측 도구에서 가장 필요한 기능은 무엇일까요?',author:'나',audience:'AI·개발 경험자',status:'대기',replies:[{id:'s2a',author:'하린',text:'예상 판매량뿐 아니라 폐기 위험 품목을 강조하는 알림이 유용할 것 같아요.',status:'대기'}]}
+];
+const mySubmissions=[
+ {id:'m1',requestId:'r1',text:'요일별 대기 인원과 회전율을 조합해 예측하고, 실측값으로 보정하겠습니다.',status:'대기'},
+ {id:'m2',requestId:'r2',text:'최근 4주 판매량과 요일 효과를 반영한 발주량 추천 기능을 제안합니다.',status:'반려'},
+ {id:'m3',requestId:'r3',text:'업무별 예상 시간과 완료 시간을 비교하는 가벼운 대시보드를 제안합니다.',status:'채택',rewarded:true}
+];
+const pointLedger=[{id:'initial',date:'샘플',activity:'팀 프로젝트 역할 분배 답변 채택',amount:100}];
+points=100;
+function awardPoints(activity,amount){pointLedger.unshift({id:uid('log'),date:new Date().toLocaleString('ko-KR'),activity,amount});points+=amount;renderPointLedger();}
+function renderPointLedger(){
+ const html=pointLedger.map(x=>`<div class="row" style="padding:9px 0;border-bottom:1px solid #eee"><span>${esc(x.activity)}<br><small>${esc(x.date)}</small></span><strong style="color:#16805a">+${x.amount} P</strong></div>`).join('');
+ $('pointTotal').textContent=points+' P';$('pointHistory').innerHTML=html;$('inboxPointTotal').textContent=points+' P';$('inboxPointHistory').innerHTML=html;
+}
+let inboxTab='incoming',inboxSelected='r1';
+const statusClass=x=>x==='채택'?'accepted':x==='반려'?'rejected':'';
+const statusBadge=x=>`<span class="status ${statusClass(x)}">${esc(x)}</span>`;
+function renderInbox(tab=inboxTab,chosen=inboxSelected){
+ inboxTab=tab;inboxSelected=chosen;
+ document.querySelectorAll('[data-inbox-tab]').forEach(b=>b.classList.toggle('active',b.dataset.inboxTab===tab));
+ const list=tab==='responses'?mySubmissions:inboxRequests.filter(r=>tab==='sent'?r.author==='나':r.author!=='나');
+ const root=$('inboxEntries');root.innerHTML='';
+ list.forEach(item=>{
+  const req=tab==='responses'?inboxRequests.find(r=>r.id===item.requestId):item;
+  const btn=document.createElement('button');btn.className='inbox-entry'+(item.id===chosen?' active':'');
+  btn.innerHTML=`${statusBadge(tab==='responses'?item.status:req.status)}<h3>${esc(req.title)}</h3><p>${tab==='responses'?esc(item.text):esc(req.author==='나'?'내 요청 · 답변 '+req.replies.length+'개':req.author+'님의 요청 · 비공개 답변')}</p>`;
+  btn.onclick=()=>renderInbox(tab,item.id);root.append(btn);
+ });
+ if(!list.length)root.innerHTML='<div class="empty">아직 항목이 없습니다.</div>';
+ const item=list.find(x=>x.id===chosen)||list[0];
+ if(!item){$('inboxDetailHeading').textContent='선택된 요청 없음';$('inboxDetailBody').innerHTML='';return;}
+ if(item.id!==inboxSelected){inboxSelected=item.id;root.querySelector('button')?.classList.add('active');}
+ const req=tab==='responses'?inboxRequests.find(r=>r.id===item.requestId):item;
+ $('inboxDetailHeading').textContent=req.title;
+ const body=$('inboxDetailBody');body.innerHTML='';
+ const info=document.createElement('p');info.textContent=(req.author==='나'?'내가 보낸 요청':req.author+'님의 요청')+' · '+req.audience;body.append(info);
+ if(tab==='responses'){
+  const block=document.createElement('div');block.className='item';block.innerHTML=`${statusBadge(item.status)}<p>${esc(item.text)}</p>`;body.append(block);
+  if(item.status==='대기'){
+   const tip=document.createElement('p');tip.textContent='답변을 전달했습니다. 요청자의 채택 또는 반려를 기다리는 중입니다.';body.append(tip);
+  }
+ }else{
+  if(tab==='incoming'){const privacy=document.createElement('p');privacy.textContent='다른 사용자의 답변은 공개되지 않습니다. 요청자만 도착한 답변을 확인할 수 있습니다.';body.append(privacy)}
+  else{const heading=document.createElement('h3');heading.textContent='도착한 답변 ('+req.replies.length+'개)';body.append(heading);
+  if(!req.replies.length){const empty=document.createElement('p');empty.textContent='아직 도착한 답변이 없습니다.';body.append(empty)}
+  req.replies.forEach(rep=>{
+   const block=document.createElement('div');block.className='item';block.innerHTML=`<strong>${esc(rep.author)}</strong> ${statusBadge(rep.status)}<p>${esc(rep.text)}</p>`;
+   if(tab==='sent'&&rep.status==='대기'){
+    const accept=document.createElement('button');accept.textContent='채택';accept.onclick=()=>{rep.status='채택';req.status='채택';renderInbox(tab,req.id);toast('답변을 채택했습니다. 답변자에게 100P가 지급되는 시연입니다.')};
+    const reject=document.createElement('button');reject.className='outline';reject.textContent='반려';reject.style.marginLeft='7px';reject.onclick=()=>{rep.status='반려';renderInbox(tab,req.id);toast('답변을 반려했습니다.')};block.append(accept,reject);
+   }
+   body.append(block);
+  });}
+  if(tab==='incoming'){
+   const ta=document.createElement('textarea');ta.className='field';ta.placeholder='요청에 대한 구체적인 답변을 작성하세요.';ta.rows=4;
+   const send=document.createElement('button');send.textContent='답변 전달';send.style.marginTop='8px';send.onclick=()=>{
+    if(!ta.value.trim())return toast('답변을 입력해 주세요.');
+    const text=ta.value.trim(),id=uid('reply');req.replies.push({id,author:'나',text,status:'대기'});mySubmissions.unshift({id,requestId:req.id,text,status:'대기'});
+    renderInbox('responses',id);toast('답변을 전달했습니다. 상태: 대기');
+   };body.append(ta,send);
+  }
+ }
+}
+document.querySelectorAll('[data-inbox-tab]').forEach(b=>b.onclick=()=>renderInbox(b.dataset.inboxTab,''));
+$('demoSelection').onclick=()=>{
+ const pending=mySubmissions.find(x=>x.status==='대기');if(!pending)return toast('대기 중인 답변이 없습니다. 먼저 답변을 보내 주세요.');
+ pending.status='채택';const req=inboxRequests.find(x=>x.id===pending.requestId),reply=req?.replies.find(x=>x.id===pending.id);if(reply)reply.status='채택';
+ if(!pending.rewarded){pending.rewarded=true;awardPoints('내 답변 채택 · '+(req?.title||'요청'),100)}
+ renderInbox('responses',pending.id);toast('내 답변 채택 시연: +100 P');
+};
+
+// Project participation demonstration. No account authentication or server-side access control.
+const projectApplications=new Map();
+const myParticipation=new Map();
+const demoProjects={
+ 'entry-0':{summary:'학교 주변 식당의 점심시간 대기 문제를 개선하고 싶습니다. 이용 경험과 데이터 수집에 관심 있는 협업자를 찾습니다.',privatePlan:'[시연용 상세 기획] 입장·퇴장 시각, 테이블 회전율, 시간대별 대기 인원을 활용해 예측 모델을 검증합니다.',applications:[{id:'ap-demo-1',name:'민지',message:'대기 시간 데이터 수집과 설문 설계를 맡고 싶습니다.',status:'대기'},{id:'ap-demo-2',name:'서준',message:'예측 모델 프로토타입 개발에 참여하고 싶습니다.',status:'승인'}]},
+ 'answer-inventory':{summary:'소규모 매장의 재고 폐기량을 줄이는 발주 추천 서비스입니다. 소상공인 인터뷰와 UX 검증 협업자를 구합니다.',privatePlan:'[시연용 상세 기획] 품목별 판매량·폐기량과 요일 효과를 이용한 수요 예측, 안전재고 추천, 폐기 위험 알림을 구현합니다.',applications:[{id:'ap-demo-3',name:'하린',message:'재고 관리 UX 테스트에 참여하고 싶어요.',status:'대기'}]},
+ 'entry-6':{summary:'반복 업무를 분석해 자동화 우선순위를 추천합니다. 업무 인터뷰와 프로토타입 검증 참여자를 구합니다.',privatePlan:'[시연용 상세 기획] 작업 빈도·소요 시간·자동화 난도를 점수화하고 개선 효과를 추정합니다.',applications:[]},
+ 'entry-9':{summary:'데이터 유형에 맞는 그래프를 추천하는 도우미입니다. 시각화 품질 검증에 참여할 사람을 찾습니다.',privatePlan:'[시연용 상세 기획] 변수 유형과 분석 목적을 매핑하는 규칙 기반 추천 엔진과 사용자 평가를 설계합니다.',applications:[]}
+};
+function ensureProject(q){
+ if(!q)return null;
+ if(!projectApplications.has(q.id)){
+  const seed=demoProjects[q.id];
+  projectApplications.set(q.id,{summary:seed?.summary||q.body||'',privatePlan:seed?.privatePlan||q.privatePlan||'',applications:(seed?.applications||[]).map(a=>({...a}))});
+ }
+ return projectApplications.get(q.id);
+}
+function isMyProject(q){return q.owner==='me'||workspaces.has(q.id)}
+function renderProjectAccess(q){
+ const box=$('projectAccess'),p=ensureProject(q),mine=isMyProject(q),myReq=myParticipation.get(q.id);
+ box.innerHTML='';
+ const heading=document.createElement('h3');heading.textContent='🔒 프로젝트 참여 · 부분 공개';box.append(heading);
+ const intro=document.createElement('p');intro.textContent=p.summary||q.body;box.append(intro);
+ const label=document.createElement('div');label.className='access-status';label.textContent=mine?'내 프로젝트 · 원본 스페이스 편집 가능':myReq?.status==='승인'?'참여 승인됨 · 만들기 스페이스 읽기 가능':myReq?.status==='대기'?'참여 신청 대기 중':myReq?.status==='반려'?'참여 신청 반려됨':'만들기 스페이스는 승인된 참여자만 열람할 수 있습니다.';box.append(label);
+ if(mine||myReq?.status==='승인'){
+  const btn=document.createElement('button');btn.className='outline';btn.textContent=mine?'내 만들기 스페이스 열기':'승인자 전용 만들기 스페이스 보기';btn.onclick=()=>{if(mine){if(workspaces.has(q.id))openWorkspace(q.id);else toast('이 프로젝트의 로컬 편집 스페이스가 없습니다.')}else openSharedWorkspace(q)};box.append(btn);
+ }
+ if(!mine&&!myReq){
+  const t=document.createElement('textarea');t.className='field';t.rows=3;t.placeholder='어떤 역할로 참여하고 싶은지, 관련 경험을 적어 주세요.';
+  const b=document.createElement('button');b.textContent='프로젝트 참여 신청';b.onclick=()=>{if(!t.value.trim())return toast('참여 목적을 작성해 주세요.');myParticipation.set(q.id,{message:t.value.trim(),status:'대기'});renderProjectAccess(q);renderProjectApplications();toast('참여 신청이 접수되었습니다. 승인 전에는 만들기 스페이스가 보이지 않습니다.')};box.append(t,b);
+ }
+ if(mine){const manage=document.createElement('button');manage.className='outline';manage.textContent='참여 신청 관리';manage.onclick=()=>{switchView('mine');renderProjectApplications();$('myProjectApplications').scrollIntoView({behavior:'smooth'})};box.append(manage)}
+ const note=document.createElement('p');note.className='privacy-note';note.textContent='시연 안내: 이 파일의 데이터는 브라우저에서만 처리됩니다. 실제 서비스에서는 로그인·서버 권한 검증·비공개 데이터 분리가 필수입니다.';box.append(note);
+}
+function renderProjectApplications(){
+ const mine=$('myProjectApplications'),out=$('myParticipationRequests');if(!mine||!out)return;mine.innerHTML='';out.innerHTML='';
+ let n=0;
+ workspaces.forEach(w=>{if(!w.shared&&!demoProjects[w.id])return;const q=qs.find(x=>x.id===w.id);if(!q)return;const p=ensureProject(q);n++;
+  const group=document.createElement('div');group.className='collab-entry';group.innerHTML=`<strong>${esc(q.title)}</strong><p>참여 신청 ${p.applications.length}건 · 승인 ${p.applications.filter(a=>a.status==='승인').length}명</p>`;
+  if(!p.applications.length){const empty=document.createElement('p');empty.textContent='아직 참여 신청이 없습니다.';group.append(empty)}
+  p.applications.forEach(a=>{const row=document.createElement('div');row.className='collab-entry';row.innerHTML=`<strong>${esc(a.name)}</strong> ${statusBadge(a.status==='승인'?'채택':a.status==='반려'?'반려':'대기')}<p>${esc(a.message)}</p>`;
+   if(a.status==='대기'){const actions=document.createElement('div');actions.className='collab-actions';const approve=document.createElement('button');approve.textContent='만들기 스페이스 열람 승인';approve.onclick=()=>{a.status='승인';renderProjectApplications();toast(a.name+'님의 참여 신청을 승인했습니다.')};const reject=document.createElement('button');reject.className='outline';reject.textContent='반려';reject.onclick=()=>{a.status='반려';renderProjectApplications()};actions.append(approve,reject);row.append(actions)}group.append(row)});mine.append(group);
+ });
+ if(!n)mine.textContent='공유한 프로젝트가 없습니다.';
+ myParticipation.forEach((v,id)=>{const q=qs.find(x=>x.id===id);if(!q)return;const el=document.createElement('div');el.className='collab-entry';el.innerHTML=`<strong>${esc(q.title)}</strong><p>${esc(v.message)}</p><span class="collab-badge">${esc(v.status)}</span>`;const b=document.createElement('button');b.className='outline';b.style.marginTop='8px';b.textContent='프로젝트 확인';b.onclick=()=>{switchView('explore');showDetail(qs.indexOf(q))};el.append(b);out.append(el)});
+ if(!myParticipation.size)out.textContent='아직 참여 신청한 프로젝트가 없습니다.';
+}
+$('saveProjectPrivacy').onclick=()=>{saveCurrent();const w=workspaces.get(activeId),q=qs.find(x=>x.id===w.id);if(q){const p=ensureProject(q);p.summary=w.publicSummary;p.privatePlan=w.privatePlan;q.body=w.publicSummary;q.privatePlan=w.privatePlan}toast('공개 소개를 저장했습니다. 승인자에게는 만들기 스페이스가 공유됩니다.');renderMine()};
+$('saveValidation').onclick=()=>{saveCurrent();toast('검증·위험 점검 내용을 현재 스페이스에 저장했습니다.')};
+$('saveVersion').onclick=()=>{saveCurrent();const w=workspaces.get(activeId);w.versions.push({date:new Date().toLocaleString('ko-KR'),title:w.title,summary:w.publicSummary,detail:w.privatePlan,final:w.final,answers:{...w.questionAnswers}});renderVersions(w);toast('아이디어 버전 기록을 남겼습니다.')};
+// Apply partial-public summaries to sample projects, without revealing their detailed plans in the UI.
+Object.keys(demoProjects).forEach(id=>{const q=qs.find(x=>x.id===id);if(!q)return;const p=ensureProject(q);q.body=p.summary;q.visibility='partial';q.owner=workspaces.has(id)?'me':'other';if(workspaces.has(id)){const w=workspaces.get(id);w.publicSummary=p.summary;w.privatePlan=p.privatePlan}});
+
+
+// v10: The approved viewer renders a snapshot of the actual workspace data, not a separate plan.
+function sharedSnapshot(q){
+ if(workspaces.has(q.id)){if(activeId===q.id)saveCurrent();return workspaces.get(q.id)}
+ const p=ensureProject(q);
+ // Public demo entries have no owner workspace in this static file. Show a clearly marked sample board.
+ const prompts=q.kind==='A'?answerPrompts:defaultPrompts;
+ return {id:q.id,kind:q.kind,title:q.title,cat:q.cat,prompts,extras:[],nodeNames:{base:q.title,...Object.fromEntries(prompts.map((v,i)=>['q'+(i+1),v]))},edges:prompts.map((_,i)=>['base','q'+(i+1)]),positions:{},done:[],questionAnswers:{},final:'',riskNotes:'',experimentNotes:'',versions:[],demoPlaceholder:true};
+}
+function openSharedWorkspace(q){
+ const approval=myParticipation.get(q.id);
+ if(!isMyProject(q)&&approval?.status!=='승인')return toast('승인된 참여자만 스페이스를 볼 수 있습니다.');
+ const w=sharedSnapshot(q),root=$('sharedWorkspaceBody');root.replaceChildren();$('sharedTitle').textContent=w.title||q.title;
+ const desc=document.createElement('p');desc.className='privacy-note';desc.textContent=w.demoPlaceholder?'이 항목은 외부 사용자 샘플입니다. 실제 원본 만들기 스페이스 데이터가 없으므로 질문 구조만 예시로 표시합니다.':'작성자가 구성한 노드, 연결, 구체화 답변과 검증 기록을 열람합니다. 수정할 수 없습니다.';root.append(desc);
+ const scroll=document.createElement('div');scroll.className='shared-scroll';const board=document.createElement('div');board.className='shared-node-board';const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 900 650');svg.setAttribute('width','900');svg.setAttribute('height','650');svg.classList.add('shared-line');board.append(svg);
+ const keys=['base',...w.prompts.map((_,i)=>'q'+(i+1)),...(w.extras||[]).map(x=>x[0]),...Object.keys(w.nodeNames||{}).filter(k=>k.startsWith('a')||k.startsWith('n'))];const positions={};
+ [...new Set(keys)].forEach((key,i)=>{const pos=w.positions?.[key]||[key==='base'?'350px':(65+((i-1)%3)*270)+'px',key==='base'?'25px':(200+Math.floor((i-1)/3)*145)+'px'];const x=parseFloat(pos[0]),y=parseFloat(pos[1]);positions[key]=[x,y];const note=document.createElement('div');note.className='shared-note'+((key.startsWith('a')||key.startsWith('n'))?' answer':'');note.style.left=x+'px';note.style.top=y+'px';const small=document.createElement('small');small.textContent=key==='base'?'핵심 '+w.kind:(key.startsWith('a')||key.startsWith('n'))?'연결된 답변':'구체화 질문';const txt=document.createElement('span');txt.textContent=w.nodeNames?.[key]||'내용 없음';note.append(small,txt);board.append(note)});
+ (w.edges||[]).forEach(([a,b])=>{if(!positions[a]||!positions[b])return;const [x,y]=positions[a],[X,Y]=positions[b];const path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d',`M${x+100},${y+50} C${x+100},${(y+Y)/2+50} ${X+100},${(y+Y)/2+50} ${X+100},${Y+50}`);path.setAttribute('stroke','#7460a6');path.setAttribute('stroke-width','2');path.setAttribute('fill','none');svg.append(path)});scroll.append(board);root.append(scroll);
+ const facts=document.createElement('div');facts.className='shared-facts';const add=(heading,content)=>{const div=document.createElement('div');div.className='shared-fact';const strong=document.createElement('strong');strong.textContent=heading;const text=document.createElement('div');text.textContent=content||'아직 작성되지 않았습니다.';div.append(strong,text);facts.append(div)};
+ add('분야',w.cat);(w.prompts||[]).forEach((p,i)=>add((w.nodeNames||{})['q'+(i+1)]||p,w.questionAnswers?.['q'+(i+1)]));(w.extras||[]).forEach(([id,p])=>add(p,w.questionAnswers?.[id]));add('최종 '+w.kind,w.final);add('위험 점검',w.riskNotes);add('검증 계획',w.experimentNotes);add('버전 기록',(w.versions||[]).map(v=>v.date+' · '+v.title).join('\n'));root.append(facts);
+ $('sharedWorkspaceOverlay').hidden=false;document.body.style.overflow='hidden';
+}
+function closeSharedWorkspace(){$('sharedWorkspaceOverlay').hidden=true;document.body.style.overflow=''}
+$('closeSharedWorkspace').onclick=closeSharedWorkspace;$('sharedWorkspaceOverlay').addEventListener('click',e=>{if(e.target===$('sharedWorkspaceOverlay'))closeSharedWorkspace()});
+// Local chat UX. This is NOT an LLM: it responds using transparent fixed heuristics.
+const chatHistory=new Map();let chatContextId=null;
+function agentAppend(role,content){const msg=document.createElement('div');msg.className='agent-msg'+(role==='me'?' me':'');msg.textContent=content;$('agentMessages').append(msg);$('agentMessages').scrollTop=$('agentMessages').scrollHeight}
+function agentContext(){return workspaces.get(activeId)}
+function agentReply(text){const w=agentContext();const topic=w?.title||'새 아이디어';const missing=w?.prompts?.filter((_,i)=>!w.questionAnswers?.['q'+(i+1)])||[];if(/검증|실험|가설|테스트/.test(text))return `「${topic}」의 검증을 시작하려면 먼저 대상 사용자 3~5명에게 현재 불편을 확인하고, 성공 지표를 하나 정해 보세요.\n예: 사용 시간 감소, 오류율 감소, 재방문 의향.\n이것은 사전 정의된 검증 가이드이며 AI 분석 결과는 아닙니다.`;if(/약점|위험|문제|비판|실패/.test(text))return `「${topic}」의 위험을 점검해 보세요.\n① 사용자가 실제로 겪는 문제인가요?\n② 기존 대안보다 나은 근거가 있나요?\n③ 필요한 데이터·비용을 확보할 수 있나요?\n작성한 내용을 확인해 주는 실제 AI는 아직 연결되지 않았습니다.`;if(/질문|구체화|다음|추천/.test(text))return missing.length?`다음에 구체화할 질문: ${missing[0]}\n만들기 스페이스에서 답변을 작성하면 진행도에 반영됩니다.`:'기본 질문을 모두 작성했네요. 이제 가장 중요한 가정과 최소 검증 실험을 적어 보세요.';return `현재 스페이스: ${topic}\n이 시연에서는 실제 AI 대화 모델이 연결되지 않아 자유로운 질문을 분석할 수 없습니다. 위의 ‘약점 점검’, ‘검증 가설’, ‘후속 질문’을 선택하면 현재 작업 맥락을 이용한 가이드를 볼 수 있어요.`}
+function toggleAgent(show){$('agentChat').hidden=!show;$('agentFab').setAttribute('aria-expanded',String(show));if(show){const w=agentContext(),id=w?.id||'none';if(chatContextId!==id){chatContextId=id;$('agentMessages').replaceChildren();agentAppend('agent',`현재 작업: ${w?.title||'선택된 아이디어 없음'}\n아이디어 구체화를 돕는 채팅 화면입니다. 현재는 실제 AI 모델이 연결되지 않은 로컬 시연 모드입니다.`)}$('agentInput').focus()}}
+$('agentFab').onclick=()=>toggleAgent($('agentChat').hidden);$('agentClose').onclick=()=>toggleAgent(false);
+$('agentForm').onsubmit=e=>{e.preventDefault();const val=$('agentInput').value.trim();if(!val)return;agentAppend('me',val);$('agentInput').value='';agentAppend('agent',agentReply(val))};document.querySelectorAll('[data-agent]').forEach(b=>b.onclick=()=>{const val=b.dataset.agent;agentAppend('me',val);agentAppend('agent',agentReply(val))});
+renderPointLedger();renderInbox('incoming','r1');
+
+openWorkspace('entry-0');switchView('explore');renderMine();renderMap();
+})();
+</script>
+</body>
+</html>
